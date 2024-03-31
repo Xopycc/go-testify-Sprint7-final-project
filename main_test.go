@@ -18,9 +18,7 @@ func TestMainHandlerWhenStatusOk(t *testing.T) {
 	handler.ServeHTTP(responseRecorder, req)
 
 	require.Equal(t, responseRecorder.Code, http.StatusOK)
-
-	body := responseRecorder.Body.String()
-	assert.NotEmpty(t, body)
+	assert.NotEmpty(t, responseRecorder.Body)
 }
 
 func TestMainHandlerWhenCityNotCorrect(t *testing.T) {
