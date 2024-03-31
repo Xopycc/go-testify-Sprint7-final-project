@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestMainHandlerWhenStatusOk(t *testing.T) {
@@ -16,10 +17,10 @@ func TestMainHandlerWhenStatusOk(t *testing.T) {
 	handler := http.HandlerFunc(mainHandle)
 	handler.ServeHTTP(responseRecorder, req)
 
-	assert.Equal(t, responseRecorder.Code, http.StatusOK)
+	require.Equal(t, responseRecorder.Code, http.StatusOK)
 
 	body := responseRecorder.Body.String()
-	assert.NotNil(t, body)
+	assert.NotEmpty(t, body)
 }
 
 func TestMainHandlerWhenCityNotCorrect(t *testing.T) {
@@ -31,7 +32,7 @@ func TestMainHandlerWhenCityNotCorrect(t *testing.T) {
 
 	correctMessageError := "wrong city value"
 
-	assert.Equal(t, responseRecorder.Code, http.StatusBadRequest)
+	require.Equal(t, responseRecorder.Code, http.StatusBadRequest)
 	assert.Equal(t, responseRecorder.Body.String(), correctMessageError)
 }
 
